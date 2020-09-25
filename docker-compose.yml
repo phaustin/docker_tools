@@ -1,0 +1,27 @@
+#
+# 
+#
+version: '3.8'
+
+services:
+
+#
+# copy notebooks and html files in ./notebooks on host
+# to /srv/problem_solving_content and create
+# a named volume holding that target
+#
+  content:
+    container_name: jb_build
+    build:
+      context: .
+      dockerfile: jbbuild.dockerfile
+    image: phaustin/jbbuild:sep25new
+    volumes:
+      - type: bind
+        source: /ScratchSSD/docker/docker_tools/docker_files_jb
+        target: /home/jovyan/work/docker_files_jb
+
+volumes:
+  docker_files:
+    name: docker_files_jb
+
